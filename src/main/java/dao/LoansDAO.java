@@ -33,14 +33,14 @@ public class LoansDAO implements ILoansDAO {
 	
 	@Override
 	public List<Items> searchLoanedItems(String userCardNumber) {
-		TypedQuery<Items> query = em.createNamedQuery("prestito.findByNumeroTesseraUtente", Items.class);
+		TypedQuery<Items> query = em.createNamedQuery("loans.findByCardNumber", Items.class);
 		query.setParameter("cardNumber", userCardNumber);
 	    return query.getResultList();
 	}
 
 	@Override
 	public List<Items> searchExpiredLoans() {
-		TypedQuery<Items> query = em.createNamedQuery("prestito.findExpired", Items.class);
+		TypedQuery<Items> query = em.createNamedQuery("loans.findExpired", Items.class);
 	    return query.getResultList();
 	}
 

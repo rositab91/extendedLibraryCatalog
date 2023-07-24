@@ -11,11 +11,11 @@ import javax.persistence.NamedQuery;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@NamedQuery(name = "item.findByISBN", query = "SELECT i FROM Items i WHERE i.ISBN = :isbn")
-@NamedQuery(name = "item.findByPublicationDate", query = "SELECT i FROM item i WHERE i.publicationDate = :year")
-@NamedQuery(name = "item.findByTitle", query = "SELECT i FROM item i WHERE i.title LIKE :title")
-@NamedQuery(name = "loan.findByUserCardNumber", query = "SELECT l.item FROM Loan p WHERE l.user.cardNumber = :cardNumber AND l.returnDate IS NULL")
-@NamedQuery(name = "loan.findScadutiNonRestituiti", query = "SELECT p.elemento FROM Prestito p WHERE p.dataRestituzionePrevista < CURRENT_DATE AND p.dataRestituzioneEffettiva IS NULL")
+@NamedQuery(name = "items.findByISBN", query = "SELECT i FROM Items i WHERE i.ISBN = :isbn")
+@NamedQuery(name = "items.findByPublicationDate", query = "SELECT i FROM item i WHERE i.publicationDate = :year")
+@NamedQuery(name = "items.findByTitle", query = "SELECT i FROM item i WHERE i.title LIKE :title")
+@NamedQuery(name = "loans.findByUserCardNumber", query = "SELECT l.item FROM Loans l WHERE l.user.cardNumber = :cardNumber AND l.returnDate IS NULL")
+@NamedQuery(name = "loans.findExpired", query = "SELECT l.item FROM Loans l WHERE l.expectedReturn < CURRENT_DATE AND l.returnDate IS NULL")
 
 public abstract class Items {
 

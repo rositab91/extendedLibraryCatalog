@@ -20,10 +20,10 @@ public class ItemsDAO implements IItemsDAO {
 			em.getTransaction().begin();
 			em.persist(i);
 			em.getTransaction().commit();
-			System.out.println("Evento salvato nel DB!!");
+			System.out.println("Event successfully saved!");
 		} catch (Exception ev) {
 			em.getTransaction().rollback();
-			System.out.println("Errore su salvataggio!!");
+			System.out.println("Error!");
 		} finally {
 			em.close();
 		}
@@ -36,10 +36,10 @@ public class ItemsDAO implements IItemsDAO {
 			Items el = em.find(Items.class, i);
 			em.remove(el);
 			em.getTransaction().commit();
-			System.out.println("Elemento " + i + " eliminato!!");
+			System.out.println("Item " + i + " deleted!");
 		} catch (Exception ev) {
 			em.getTransaction().rollback();
-			System.out.println("Errore su salvataggio!!");
+			System.out.println("Error!");
 		} finally {
 			em.close();
 		}			
@@ -48,12 +48,12 @@ public class ItemsDAO implements IItemsDAO {
 	
 		@Override
 		public Items searchByISBN(long ISBN) {
-			TypedQuery<Items> query = em.createNamedQuery("elemento.findByISBN", Items.class);
-			System.out.println("Elemento trovato tramite codice ISBN!!" + "Codice ISBN: " + ISBN);
+			TypedQuery<Items> query = em.createNamedQuery("item.findByISBN", Items.class);
+			System.out.println("Item found by ISBN!!" + "Code ISBN: " + ISBN);
 			query.setParameter("isbn", ISBN);
-			List<Items> risultati = query.getResultList();
-			for (Items elem : risultati) {
-				System.out.println("Titolo del libro: " + elem.getTitle());
+			List<Items> results = query.getResultList();
+			for (Items item : results) {
+				System.out.println("Book title: " + item.getTitle());
 	        }
 	        
 	        return null;
@@ -62,12 +62,12 @@ public class ItemsDAO implements IItemsDAO {
 	    
 	    @Override
 		public List<Items> searchByTitle(String title) {
-			TypedQuery<Items> query = em.createNamedQuery("elemento.findByTitolo", Items.class);
-			query.setParameter("titolo", "%" + title + "%");
+			TypedQuery<Items> query = em.createNamedQuery("item.findByTitle", Items.class);
+			query.setParameter("title", "%" + title + "%");
 			List<Items> results = query.getResultList();
 	        
 			for (Items elem : results) {
-				System.out.println("Book Title: " + elem.getTitle());
+				System.out.println("Book title: " + elem.getTitle());
 	        }
 	        
 			return results;
@@ -75,7 +75,7 @@ public class ItemsDAO implements IItemsDAO {
 	    
 		@Override
 		public List<Items> searchByPublicationDate(int publicationDate) {
-			TypedQuery<Items> query = em.createNamedQuery("elemento.findByPublicationDate", Items.class);
+			TypedQuery<Items> query = em.createNamedQuery("item.findByPublicationDate", Items.class);
 			query.setParameter("year", publicationDate);
 			List<Items> titles = query.getResultList();
 		    
